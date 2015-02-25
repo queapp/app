@@ -4,26 +4,25 @@
   <meta charset="utf-8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>My App</title>  
-  
-  <link rel="stylesheet" href="lib/onsen/css/onsenui.css">  
-  <link rel="stylesheet" href="styles/onsen-css-components-blue-basic-theme.css">  
-  <link rel="stylesheet" href="styles/app.css"/>
+  <title>My App</title>
 
-  <script src="lib/onsen/js/angular/angular.js"></script>    
-  <script src="lib/onsen/js/onsenui.js"></script>    
+  <!-- onsen ui styles -->
+  <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+  <link rel="stylesheet" href="styles/onsen-css-components-blue-basic-theme.css" />
+  <link rel="stylesheet" href="styles/app.css" />
+
+  <script src="lib/onsen/js/angular/angular.js"></script>
+  <script src="lib/onsen/js/onsenui.js"></script>
 
   <script src="cordova.js"></script>
 
-  <script>
-    var module = angular.module('app', ['onsen']);
-  </script>
+  <script src="/lib/js/app/index.js"></script>
 
   <style>
     .page--menu-page__background {
       background-color: #333;
     }
-    
+
     .page--menu-page__content {
       color: white;
     }
@@ -78,11 +77,13 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
   </style>
-  
+
+  <link rel="stylesheet" href="/lib/less/index.css" />
+
 </head>
 
-<body>    
-  
+<body>
+
   <ons-sliding-menu
     menu-page="menu.html" main-page="page1.html" side="left"
     var="menu" type="reveal" max-slide-distance="260px" swipable="true">
@@ -172,6 +173,6 @@
 
     </ons-page>
   </ons-template>
- 
+
 </body>
 </html>
