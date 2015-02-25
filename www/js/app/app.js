@@ -1,4 +1,4 @@
-var app = angular.module("QueGui", ["ngAnimate", "ngRoute"]);
+var app = angular.module("QueGui", ["ngAnimate", "ngRoute", "snap"]);
 
 // the top nav colors
 var navColorYellow = "#FCBD4B";

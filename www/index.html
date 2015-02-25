@@ -19,6 +19,27 @@
     <![endif]-->
   </head>
   <body ng-app="QueGui" ng-controller="navController as nC" ng-class="{white: !nC.user.auth.username}">
+
+    <header class="bar bar-nav">
+      <h1 class="title">{{nC.getPageTitle().title}}</h1>
+    </header>
+
+    <nav class="bar bar-tab">
+      <a class="tab-item active" href="#/dash">
+        Label
+      </a>
+      <a class="tab-item" href="#/things">
+        Label
+      </a>
+      <a class="tab-item" href="#">
+        Label
+      </a>
+    </nav>
+
+    <div snap-drawer>
+      <p>I'm a drawer! I maybe I've got some sweet navigation links.</p>
+    </div>
+
     <div ng-controller="QueryResultsController as qC">
 
       <!-- header -->
@@ -99,6 +120,10 @@
     <script src="js/angular.min.js"></script>
     <script src="js/angular-animate.min.js"></script>
     <script src="js/angular-route.min.js"></script>
+
+    <!-- snap.js stuff -->
+    <script src="../ratchet/js/angular-snap.min.js"></script>
+    <script src="js/libs/snap.js"></script>
 
     <!-- get the host -->
     <script src="js/get-host.js"></script>
