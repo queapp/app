@@ -41,16 +41,7 @@ body {
 div.view-container {
   .container;
   position: relative;
-  margin-top: 0px;
-
-  // on mobile, always no-pushup
-  @media (min-width: @screen-sm-min) {
-    margin-top: -64px;
-  }
-
-  &.no-pushup {
-    margin-top: 0px;
-  }
+  margin-top: 20px;
 }
 
 div[ng-view].ng-enter, div[ng-view].ng-leave {
