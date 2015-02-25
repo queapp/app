@@ -1,0 +1,83 @@
+// main: index.less
+
+// styling of the data editor list
+ul.edit-data {
+  padding-left: 0px;
+
+  li.new-control {
+    list-style-type: none;
+    padding: 6px 0px;
+
+    input[type=text] {
+      .form-control;
+    }
+    button {
+      .btn;
+      .btn-success;
+      width: 100px;
+      margin-left: 10px;
+    }
+  }
+
+  li.control {
+    padding: 8px 0px;
+    list-style-type: none;
+
+    // label for each data item
+    label {
+      font-weight: normal;
+      font-size: @font-size-large * .9;
+      display: inline-block;
+      margin-top: 10px;
+
+      &:after { content: ":"; }
+    }
+
+    canvas {
+      vertical-align: top;
+      .pull-right;
+    }
+
+    input {
+      .pull-right;
+      display: inline-block;
+      margin: @padding-small-vertical 0px;
+
+      &[type=text], &[type=number], &[type=time], &[type=checkbox]{
+        .form-control;
+        width: 300px;
+        display: inline-block;
+      }
+
+      // checkboxes should be shown as buttons
+      &[type=checkbox] {
+        appearance: none;
+        -webkit-appearance: none;
+        .btn;
+        .btn-primary;
+
+        &:before { content: "Off"; }
+
+        &:checked {
+          .btn-success;
+          &:before { content: "On"; }
+        }
+
+      }
+    }
+
+    .delete-control {
+      .pull-right;
+      margin: 4px 0px 4px 10px;
+    }
+
+    .set-bounds {
+      .pull-right;
+      margin: 0px 8px 4px 10px;
+
+      input {
+        width: 120px;
+      }
+    }
+  }
+}

@@ -1,178 +1,127 @@
-<!doctype html>
-<html lang="en" ng-app="app">
-<head>
-  <meta charset="utf-8">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <title>My App</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=1000"> -->
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Que Dashboard</title>
 
-  <!-- onsen ui styles -->
-  <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
-  <link rel="stylesheet" href="styles/onsen-css-components-blue-basic-theme.css" />
-  <link rel="stylesheet" href="styles/app.css" />
+    <!-- Bootstrap -->
+    <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/index.css" rel="stylesheet">
 
-  <script src="lib/onsen/js/angular/angular.js"></script>
-  <script src="lib/onsen/js/onsenui.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      ">">https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js">
+      ">">https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
+    <![endif]-->
+  </head>
+  <body ng-app="QueGui" ng-controller="navController as nC" ng-class="{white: !nC.user.auth.username}">
+    <div ng-controller="QueryResultsController as qC">
 
-  <script src="cordova.js"></script>
+      <!-- header -->
+      <nav class="navbar navbar-default navbar-que" role="navigation" ng-show="nC.user.auth.username">
 
-  <script src="/lib/js/app/index.js"></script>
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" tooltip data-original-title="{{nC.version}}" data-placement="right">
+              <img src="img/logo.svg"/> <!-- logo -->
+            </a>
+          </div>
 
-  <style>
-    .page--menu-page__background {
-      background-color: #333;
-    }
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li ng-class="{active: nC.pageId == 0}">
+                <a href="#/dash">Dashboard</a>
+              </li>
+              <li ng-class="{active: nC.pageId == 1}">
+                <a href="#/things">Things</a>
+              </li>
+              <li ng-class="{active: nC.pageId == 2}">
+                <a href="#/rooms">Rooms</a>
+              </li>
+              <li ng-class="{active: nC.pageId == 3}">
+                <a href="#/blocks">Blocks</a>
+              </li>
+              <li ng-class="{active: nC.pageId == 4}">
+                <a href="#/settings">Settings</a>
+              </li>
+              <li ng-class="{active: $location.url() == '/login'}" ng-hide="nC.user.auth.username">
+                <a href="#/login">Login</a>
+              </li>
+              <li ng-show="nC.user.auth.username">
+                <a href ng-click="nC.user.logout()" title="Logout User">
+                  <!-- <span class="glyphicon glyphicon-user" style="vertical-align: text-bottom;"></span> -->
+                  {{nC.user.auth.username}}
+                </a>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
 
-    .page--menu-page__content {
-      color: white;
-    }
 
-    .menu-close,
-    .menu-close > .toolbar-button {
-      color: #999;
-    }
+        </div><!-- /.container-fluid -->
 
-    .menu-list,
-    .menu-item:first-child,
-    .menu-item:last-child,
-    .menu-item {
-      background-color: transparent;
-      background-image: none !important;
-      border-color: transparent;
-      color: #fff;
-    }
+        <h1>
+          {{nC.getPageTitle().title}}
+          <small>{{nC.getPageTitle().desc}}</small>
+        </h1>
 
-    .menu-item {
-      padding: 0 0 0 20px;
-      line-height: 52px;
-      height: 52px;
-      text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px;
-    }
-
-    .menu-item:active {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .menu-notification {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 14px;
-      height: 16px;
-      line-height: 16px;
-      min-width: 16px;
-      font-weight: 600;
-    }
-
-    .bottom-menu-list,
-    .bottom-menu-item:first-child,
-    .bottom-menu-item:last-child,
-    .bottom-menu-item {
-      border-color: #393939;
-      background-color: transparent;
-      background-image: none !important;
-      color: #ccc;
-    }
-
-    .bottom-menu-item:active {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  </style>
-
-  <link rel="stylesheet" href="/lib/less/index.css" />
-
-</head>
-
-<body>
-
-  <ons-sliding-menu
-    menu-page="menu.html" main-page="page1.html" side="left"
-    var="menu" type="reveal" max-slide-distance="260px" swipable="true">
-  </ons-sliding-menu>
-
-  <ons-template id="menu.html">
-    <ons-page modifier="menu-page">
-      <ons-toolbar modifier="transparent"></ons-toolbar>
-
-      <ons-list class="menu-list">
-        <ons-list-item class="menu-item" ng-click="menu.setMainPage('page1.html', {closeMenu: true})">
-          <ons-icon icon="fa-plus"></ons-icon>
-          New Post
-        </ons-list-item>
-
-        <ons-list-item class="menu-item" ng-click="menu.setMainPage('page2.html', {closeMenu: true})">
-          <ons-icon icon="fa-bookmark"></ons-icon>
-          Bookmark
-        </ons-list-item>
-
-        <ons-list-item class="menu-item" ng-click="menu.setMainPage('page1.html', {closeMenu: true})">
-          <ons-icon icon="fa-twitter"></ons-icon>
-          Official Twitter
-        </ons-list-item>
-      </ons-list>
-
-      <br>
-
-      <ons-list class="bottom-menu-list">
-        <ons-list-item class="bottom-menu-item" ng-click="menu.setMainPage('page2.html', {closeMenu: true})">
-          Settings
-          <div class="notification menu-notification">3</div>
-        </ons-list-item>
-
-        <ons-list-item class="bottom-menu-item" ng-click="menu.setMainPage('page1.html', {closeMenu: true})">
-          Help
-        </ons-list-item>
-
-        <ons-list-item class="bottom-menu-item" ng-click="menu.setMainPage('page2.html', {closeMenu: true})">
-          Send feedback
-        </ons-list-item>
-      </ons-list>
-    </ons-page>
-  </ons-template>
-
-  <ons-template id="page1.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-toolbar-button ng-click="menu.toggle()">
-            <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon>
-          </ons-toolbar-button>
+        <div class="search-container" ng-class="{hide: nC.pageId !== 0}">
+          <div class="container">
+            <input type="text" placeholder="What do you want Que to do?" ng-model="qC.queryText" />
+            <span class="glyphicon glyphicon-search" ng-click="qC.doQuery()" ng-show="qC.queryText.length"></span>
+          </div>
         </div>
-        <div class="center">Page 1</div>
-      </ons-toolbar>
 
-      <ons-row style="margin-top: 100px;">
-        <ons-col align="center">
-          <ons-button modifier="light" ng-click="menu.toggleMenu()">
-            Toggle Menu
-          </ons-button>
-          <p style="color: #999; font-size: 13px;">Click "Toggle Menu" to close/open menu,<br> You can also swipe the page left/right.</p>
-        </ons-col>
-      </ons-row>
-    </ons-page>
-  </ons-template>
+      </nav>
 
-  <ons-template id="page2.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-toolbar-button ng-click="menu.toggle()">
-            <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-        <div class="center">Page 2</div>
-      </ons-toolbar>
+      <div class="view-container" ng-class="{'no-pushup': nC.pageId == 0 || nC.user.auth.username == null}">
+        <div ng-view></div>
+      </div>
 
+    </div>
+    <!-- all javascript -->
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/jqueryui.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/libs/underscore.min.js"></script>
+    <script src="js/app/wildcard.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
 
-      <ons-row style="margin-top: 100px;">
-        <ons-col align="center">
-          <ons-button modifier="light" ng-click="menu.toggleMenu()">
-            Toggle Menu
-          </ons-button>
-        </ons-col>
-      </ons-row>
+    <!-- get the host -->
+    <script src="js/get-host.js"></script>
 
-    </ons-page>
-  </ons-template>
+    <!-- websockets -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script> var socket = io(); </script>
 
-</body>
+    <!-- angular stuff -->
+    <script src="js/app/app.js"></script>
+    <script src="js/app/directives.js"></script>
+    <script src="js/app/settings.js"></script>
+
+    <script src="js/app/things.js"></script>
+    <script src="js/app/rooms.js"></script>
+    <script src="js/app/blocks.js"></script>
+
+    <script src="js/app/login.js"></script>
+    <script src="js/app/newwizard.js"></script>
+    <script src="js/app/query-results.js"></script>
+
+    <!-- update textbox-groups -->
+    <script src="js/libs/textbox-group.js"></script>
+
+  </body>
 </html>

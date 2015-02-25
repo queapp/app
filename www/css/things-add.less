@@ -1,0 +1,76 @@
+// main: index.less
+.thing-add.page-3.page-spark {
+  position: relative;
+
+  background-image: url("../img/thingpins.svg");
+  background-repeat: no-repeat;
+  background-size: 348px;
+  background-position: center 44 + @font-size-base * 2;
+  min-height: 436px;
+
+  .gpio-button {
+    position: absolute;
+    left: -88px;
+    margin-top: -24px;
+    width: 64px;
+
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    -o-user-select: none;
+    user-select: none;
+
+    input { display: none; }
+    label {
+      font-weight: normal;
+      cursor: pointer;
+      font-size: 16px;
+      float: right;
+    }
+  }
+
+  p {
+    background: #FFF;
+  }
+
+  img {
+    width: 348px;
+    margin: 0px auto;
+    display: block;
+  }
+
+  ul {
+    list-style-type: none;
+
+    li {
+      padding: 1px;
+
+      input {
+        .form-control;
+        padding: 0px 12px;
+        height: 28px;
+        width: 108px;
+
+        &.ng-pristine { opacity: 0.5; }
+        &:focus { opacity: 1; }
+      }
+    }
+  }
+
+  ul.left {
+    position: absolute;
+    left: -36px;
+    bottom: 15px;
+  }
+
+  ul.right {
+    position: absolute;
+    right: 0px;
+    bottom: 15px;
+  }
+
+}
+
+.http-endpoint-action {
+  padding: 10px 0px;
+}
