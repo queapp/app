@@ -40,12 +40,10 @@
       </a>
     </nav>
 
-    <div ng-controller="QueryResultsController as qC">
-
-      <div class="view-container content-padded" ng-class="{'no-pushup': nC.pageId == 0 || nC.user.auth.username == null}">
+    <div class="content" ng-controller="QueryResultsController as qC">
+      <div class="view-container">
         <div ng-view></div>
       </div>
-
     </div>
     <!-- all javascript -->
     <script src="js/libs/jquery.min.js"></script>
