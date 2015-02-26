@@ -22,23 +22,22 @@
 
     <header class="bar bar-nav">
       <h1 class="title">{{nC.getPageTitle().title}}</h1>
-      <a class="icon icon-plus pull-right"></a>
     </header>
 
     <nav class="bar bar-tab">
-      <a class="tab-item active" href="#/dash">
+      <a class="tab-item active" ng-class="{active: nC.pageId == 0}" href="#/dash">
         Dash
       </a>
-      <a class="tab-item" href="#/things">
+      <a class="tab-item" ng-class="{active: nC.pageId == 1}" href="#/things">
         Things
       </a>
-      <a class="tab-item" href="#/rooms">
+      <a class="tab-item" ng-class="{active: nC.pageId == 2}" href="#/rooms">
         Rooms
       </a>
-      <a class="tab-item" href="#/blocks">
+      <a class="tab-item" ng-class="{active: nC.pageId == 3}" href="#/blocks">
         Blocks
       </a>
-      <a class="tab-item" href="#/settings">
+      <a class="tab-item" ng-class="{active: nC.pageId == 4}" href="#/settings">
         Settings
       </a>
     </nav>
