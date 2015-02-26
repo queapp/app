@@ -126,6 +126,12 @@
 
         <!-- thing list in each room -->
         <ul class="thing-list">
+
+          <!-- message on how to add things to the room -->
+          <span class="muted" ng-hide="rooms.things.length">
+            Hmm, you don't have any things in this room yet.
+          </span>
+
           <li ng-repeat="th in rooms.things">
             <span class="block-title">
               {{th.thing.name}}
