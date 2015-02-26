@@ -4,6 +4,32 @@
   position: absolute;
   top: 0px;
   right: 0px;
+
+  span.text {
+    font-size: 75%;
+  }
+}
+
+.model-top-left {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  span.text {
+    font-size: 75%;
+  }
+}
+
+.editActive {
+  color: @brand-primary;
+}
+
+.roomSelect {
+  .clearfix;
+  background: @gray-lighter;
+  width: 100%;
+  margin: 8px 0px;
+  padding: 4px 0px;
 }
 
 // styling of the data editor list
@@ -44,6 +70,15 @@ ul.edit-data {
       .pull-right;
     }
 
+    .delete-control {
+      .pull-right;
+      margin: 4px 0px 4px 10px;
+    }
+
+    &.pushdown:first-child {
+      margin-top: 40px;
+    }
+
     input {
       .pull-right;
       display: inline-block;
@@ -72,10 +107,6 @@ ul.edit-data {
       }
     }
 
-    .delete-control {
-      .pull-right;
-      margin: 4px 0px 4px 10px;
-    }
 
     .set-bounds {
       .pull-right;

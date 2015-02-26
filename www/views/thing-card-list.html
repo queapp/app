@@ -9,28 +9,28 @@
         A thing is a physical object that Que can control.
         <span>A garden, an Autofeeding pet dish, or a 3d Printer</span>
         <br/>
-        <a
+        <!-- <a
           href
           class="btn btn-success btn-lg"
           data-toggle="modal"
           data-target="#addThingModal"
           ng-show="nC.user.can('thing.create')"
           >Add a thing
-        </a>
+        </a> -->
       </div>
     </div>
 
 
 
     <!-- button to generate new key and add a thing -->
-    <div
+    <!-- <div
       class="add-button things"
       ng-show="tC.things.length !== 0"
       data-toggle="modal"
       data-target="#addThingModal"
       ng-show="nC.user.can('thing.create')">
       +
-    </div>
+    </div> -->
 
     <div class="modal fade" id="addThingModal">
       <div class="modal-dialog">
@@ -280,39 +280,56 @@
 
     <ul class="list-group">
       <li class="list-group-item thing" ng-repeat="thing in tC.things">
-        <h3 tooltip data-toggle="tooltip" data-placement="left" title="Tags: {{thing.tags.join(', ')}}">
+
+        <!-- thing title -->
+        <h3
+          ng-hide="tC.editMode === thing.id"
+          tooltip
+          data-toggle="tooltip"
+          data-placement="left"
+          title="Tags: {{thing.tags.join(', ')}}"
+          >
           {{thing.name}}
           <br/>
           <small>{{thing.desc}}</small>
         </h3>
 
-        <div class="model-top-right">
+        <!-- upper-left utility buttons -->
+        <div class="model-top-left">
+
+          <!-- delete thing -->
           <button
-            class="btn"
+            class="btn btn-lg delete-thing"
+            ng-click="tC.removeThing(thing.id, $index)"
+            ng-init="tC.editMode = false"
+            ng-show="tC.editMode === thing.id"
+            ng-disabled="!nC.user.can('thing.delete.'+thing.id)"
+            >
+            <span class="icon icon-close"></span>
+            <span class="text">Delete Thing</span>
+          </button>
+        </div>
+
+        <!-- upper-right utility buttons -->
+        <div class="model-top-right">
+
+          <!-- edit, and unedit buttons -->
+          <button
+            class="btn btn-lg edit"
             ng-click="tC.editMode = thing.id"
             ng-hide="tC.editMode === thing.id"
             ng-disabled="!nC.user.can('thing.edit.'+thing.id)"
             >
             ...
           </button>
-          <button class="btn" ng-click="tC.editMode = false" ng-show="tC.editMode === thing.id">
-            <span class="icon icon-check"></span>
+          <button class="btn btn-lg editActive" ng-click="tC.editMode = false" ng-show="tC.editMode === thing.id">
+            ...
           </button>
         </div>
 
-        <!-- delete thing -->
-        <button
-          class="btn btn-danger pull-right"
-          ng-click="tC.removeThing(thing.id, $index)"
-          ng-init="tC.editMode = false"
-          ng-show="tC.editMode === thing.id"
-          ng-disabled="!nC.user.can('thing.delete.'+thing.id)"
-          >
-          Delete Thing
-        </button>
 
         <!-- add to room -->
-        <span ng-controller="RoomsController as rC" ng-show="rC.onlyNotIn(rC.rooms, thing.id).length">
+        <div class="roomSelect" ng-controller="RoomsController as rC" ng-show="rC.onlyNotIn(rC.rooms, thing.id).length">
           <button
             class="btn btn-success pull-right"
             style="margin-right: 16px;"
@@ -329,24 +346,21 @@
             ng-hide="tC.editMode === thing.id"
             ng-model="roomToAdd"
             ng-disabled="!nC.user.can('room.thing.add.'+thing.id)">
+            <option value="" default selected>Pick Room</option>
             <option ng-repeat="item in rC.onlyNotIn(rC.rooms, thing.id)">{{item.name}}</option>
           </select>
-        </span>
+        </div>
 
 
         <!-- list of toggleable attributes -->
         <ul class="card-form clearfix edit-data">
-          <li class="control" ng-repeat="(k, v) in thing.data" ng-show="nC.user.can('thing.control.read.'+k+'.'+thing.id)">
+          <li
+            class="control"
+            ng-repeat="(k, v) in thing.data"
+            ng-show="nC.user.can('thing.control.read.'+k+'.'+thing.id)"
+            ng-class="{pushdown: tC.editMode === thing.id}"
+            >
 
-            <!-- control delete button -->
-            <button
-              class="btn btn-danger delete-control"
-              ng-click="tC.deleteControl(thing.id, k)"
-              ng-show="tC.editMode === thing.id"
-              ng-disabled="!nC.user.can('thing.control.delete.'+thing.id)"
-              >
-              Delete
-            </button>
 
 
             <!-- show the control -->
@@ -366,11 +380,25 @@
               placeholder="{{k}}"
               value="{{tC.isButton(v) &amp;&amp; v.value}}"
               ng-disabled="v.readonly || !nC.user.can('thing.control.write.'+k+'.'+thing.id)"
-              ng-hide="tC.getTypeFor(v) == 'canvas'"
+              ng-hide="tC.editMode === thing.id || tC.getTypeFor(v) == 'canvas'"
               max="{{v.maxValue}}" min="{{v.minValue}}"
             />
-            <canvas ng-show="tC.getTypeFor(v) == 'canvas'" class="canvas-{{thing.id}}-{{k}}" style="width: {{v.width || '200px'}}; height: {{v.height || '100px'}};"></canvas>
+            <canvas
+              ng-show="tC.getTypeFor(v) == 'canvas'"
+              class="canvas-{{thing.id}}-{{k}}"
+              style="width: {{v.width || '200px'}}; height: {{v.height || '100px'}};"
+              >
+            </canvas>
 
+            <!-- control delete button -->
+            <button
+              class="btn btn-danger delete-control"
+              ng-click="tC.deleteControl(thing.id, k)"
+              ng-show="tC.editMode === thing.id"
+              ng-disabled="!nC.user.can('thing.control.delete.'+thing.id)"
+              >
+              Delete
+            </button>
 
             <!-- set the control min and max bounds -->
             <div
