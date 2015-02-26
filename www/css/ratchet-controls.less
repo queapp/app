@@ -1,0 +1,28 @@
+
+// top title bar
+header.bar.bar-nav {
+  background: #59ABE3;
+
+  h1 {
+    color: #FFF;
+  }
+}
+
+// dark, bottom bar
+.bar.bar-tab {
+  @base-color: #929292;
+
+  background: @gray-dark;
+
+  a {
+    color: darken(@base-color, 20%);
+  }
+
+  a.active {
+    color: @base-color;
+
+    &:focus, &:active, &:hover {
+      text-decoration: none;
+    }
+  }
+}
