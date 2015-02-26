@@ -20,7 +20,7 @@
   </head>
   <body ng-app="QueGui" ng-controller="navController as nC" ng-class="{white: !nC.user.auth.username}">
 
-    <header class="bar bar-nav navbar-que">
+    <header class="bar bar-nav navbar-que" ng-show="nC.user.auth.username">
       <h1 class="title">{{nC.getPageTitle().title}}</h1>
     </header>
 
@@ -39,6 +39,9 @@
       </a>
       <a class="tab-item" ng-class="{active: nC.pageId == 4}" href="#/settings">
         Settings
+      </a>
+      <a class="tab-item" ng-click="nC.user.logout()">
+        <span class="icon icon-right"></span>
       </a>
     </nav>
 

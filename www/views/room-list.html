@@ -173,8 +173,6 @@
                     ng-change="rC.disableOrEnableControls(th, 'enter', changeEnterStuff); rC.updateThings(rooms)"
                    />
                   <label>Change the stuff below:</label>
-                  <br/>
-                  <code>{{th.enter}}</code>
 
                   <!-- values to change -->
                   <ul class="card-form clearfix edit-data">
@@ -207,6 +205,9 @@
                       </canvas>
                     </li>
                   </ul>
+
+                  <!-- show the code for a second check -->
+                  <code>{{th.enter}}</code>
                 </div>
               </div>
 
@@ -226,7 +227,6 @@
                     ng-change="rC.disableOrEnableControls(th, 'leave', changeLeaveStuff); rC.updateThings(rooms)"
                    />
                   <label>Change the stuff below:</label>
-                  <code>{{th.leave}}</code>
 
                   <!-- values to change -->
                   <ul class="card-form clearfix edit-data">
@@ -259,6 +259,9 @@
                       </canvas>
                     </li>
                   </ul>
+
+                  <!-- show the code for a second check -->
+                  <code>{{th.leave}}</code>
                 </div>
               </div>
 
