@@ -282,20 +282,23 @@
       <li class="list-group-item thing" ng-repeat="thing in tC.things">
         <h3 tooltip data-toggle="tooltip" data-placement="left" title="Tags: {{thing.tags.join(', ')}}">
           {{thing.name}}
+          <br/>
           <small>{{thing.desc}}</small>
         </h3>
 
-        <button
-          class="btn btn-primary pull-right"
-          ng-click="tC.editMode = thing.id"
-          ng-hide="tC.editMode === thing.id"
-          ng-disabled="!nC.user.can('thing.edit.'+thing.id)"
-          >
-          Edit
-        </button>
-        <button class="btn btn-primary pull-right" ng-click="tC.editMode = false" ng-show="tC.editMode === thing.id">
-          Done
-        </button>
+        <div class="model-top-right">
+          <button
+            class="btn"
+            ng-click="tC.editMode = thing.id"
+            ng-hide="tC.editMode === thing.id"
+            ng-disabled="!nC.user.can('thing.edit.'+thing.id)"
+            >
+            ...
+          </button>
+          <button class="btn" ng-click="tC.editMode = false" ng-show="tC.editMode === thing.id">
+            <span class="icon icon-check"></span>
+          </button>
+        </div>
 
         <!-- delete thing -->
         <button
@@ -334,6 +337,8 @@
         <!-- list of toggleable attributes -->
         <ul class="card-form clearfix edit-data">
           <li class="control" ng-repeat="(k, v) in thing.data" ng-show="nC.user.can('thing.control.read.'+k+'.'+thing.id)">
+
+            <!-- control delete button -->
             <button
               class="btn btn-danger delete-control"
               ng-click="tC.deleteControl(thing.id, k)"
@@ -342,6 +347,9 @@
               >
               Delete
             </button>
+
+
+            <!-- show the control -->
             <label
               tooltip
               data-toggle="tooltip"
@@ -362,6 +370,7 @@
               max="{{v.maxValue}}" min="{{v.minValue}}"
             />
             <canvas ng-show="tC.getTypeFor(v) == 'canvas'" class="canvas-{{thing.id}}-{{k}}" style="width: {{v.width || '200px'}}; height: {{v.height || '100px'}};"></canvas>
+
 
             <!-- set the control min and max bounds -->
             <div
