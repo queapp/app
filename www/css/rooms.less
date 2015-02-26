@@ -1,8 +1,13 @@
 // main: index.less
 
-#addRoomModal {
+.roomModal {
   .modal-body .form-control {
     margin: 10px 0px;
+  }
+
+  code {
+    font-size: @font-size-base * 0.8;
+    max-width: 320px;
   }
 }
 
@@ -40,7 +45,7 @@
     list-style-type: none;
 
     // style the action buttons to fit
-    .btn {
+    &>.btn, div>.btn {
       .btn-xs;
       .pull-right;
 
