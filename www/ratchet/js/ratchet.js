@@ -20,7 +20,7 @@
 
   var findModals = function (target) {
     var i;
-    var modals = document.querySelectorAll('a');
+    var modals = document.querySelectorAll('[data-modal]');
 
     for (; target && target !== document; target = target.parentNode) {
       for (i = modals.length; i--;) {
@@ -33,12 +33,12 @@
 
   var getModal = function (event) {
     var modalToggle = findModals(event.target);
-    if (modalToggle && modalToggle.hash) {
-      return document.querySelector(modalToggle.hash);
+    if (modalToggle && modalToggle.attributes['data-modal'].value) {
+      return document.querySelector(modalToggle.attributes['data-modal'].value);
     }
   };
 
-  window.addEventListener('touchend', function (event) {
+  window.addEventListener('click', function (event) {
     var modal = getModal(event);
     if (modal) {
       if (modal && modal.classList.contains('modal')) {

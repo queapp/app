@@ -197,7 +197,7 @@ app.controller("RoomsController", function($scope, $http, roomsService, thingSer
   // update things for a room
   this.updateThings = function(room) {
     roomsService.updateThings(room.id, room.things, function() {
-      $(".modal").modal('hide'); // hide modal
+      console.log("update room."); // this is needed, strangely.
     });
   };
 
