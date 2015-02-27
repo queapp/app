@@ -1,13 +1,13 @@
 <div class="container blocks" ng-controller="BlockController as bC">
 
   <!-- button to generate new key and add a thing -->
-  <div
+  <!-- <div
     class="add-button blocks"
     ng-show="bC.blocks.length !== 0"
     data-toggle="modal"
     data-target="#addBlockModel">
     +
-  </div>
+  </div> -->
 
   <div class="no-cards" ng-show="bC.blocks.length === 0">
     <div class="side">
@@ -68,121 +68,140 @@
 
 
     <li class="list-group-item" ng-repeat="block in bC.blocks">
-      <h2 class="title">
+      <h3>
         {{block.name}}
+        <br/>
         <small>{{block.desc}}</small>
-      </h2>
+      </h3>
 
-      <!-- delete button -->
-      <button
-        class="btn btn-danger pull-right"
-        ng-click="bC.deleteBlock(block);"
-        ng-disabled="!nC.user.can('block.delete.'+block.id)"
-        >
-        Delete
-      </button>
+      <!-- upper-right utility buttons -->
+      <div class="model-top-right">
 
-      <!-- code edit button -->
-      <button
-        class="btn btn-primary pull-right"
-        data-toggle="modal"
-        data-target="#{{block.id}}-code-modal"
-        ng-disabled="!(nC.user.can('block.code.view.'+block.id) || nC.user.can('block.code.edit.'+block.id))"
-        >
-        Edit Code
-      </button>
+        <!-- disable/enable execution button -->
+        <button
+          class="btn delete-action"
+          ng-click="bC.setBlockDisabled(block, true);"
+          ng-hide="block.disable"
+          ng-disabled="!nC.user.can('block.disable.'+block.id)"
+          >
+          <span class="icon icon-stop"></span>
+        </button>
+        <button
+          class="btn success-action"
+          ng-click="bC.setBlockDisabled(block, false);"
+          ng-show="block.disable"
+          ng-disabled="!nC.user.can('block.disable.'+block.id)"
+          >
+          <span class="icon icon-play"></span>
+        </button>
 
-      <!-- disable button -->
-      <button
-        class="btn btn-warning pull-right"
-        ng-click="bC.setBlockDisabled(block, true);"
-        ng-hide="block.disable"
-        ng-disabled="!nC.user.can('block.disable.'+block.id)"
-        >
-        Disable
-      </button>
-      <button
-        class="btn btn-default pull-right"
-        ng-click="bC.setBlockDisabled(block, false);"
-        ng-show="block.disable"
-        ng-disabled="!nC.user.can('block.disable.'+block.id)"
-        >
-        Enable
-      </button>
+        <!-- code edit button -->
+        <button
+          class="btn primary-action"
+          ng-disabled="!(nC.user.can('block.code.view.'+block.id) || nC.user.can('block.code.edit.'+block.id))"
+          data-modal="#block-{{block.id}}-code-modal"
+          >
+          <span class="icon icon-compose"></span>
+        </button>
 
-      <div class="log-space inline">
-
-        <span class="log-{{b.type}}" ng-repeat="b in block.log track by $index">
-          {{b.when.toLocaleString && b.when.toLocaleString()}}
-          <span class="text">{{b.msg.trim()}}</span>
-          <br/>
-        </span>
-
-        <!-- clear log button -->
-        <button type="button" class="btn btn-default btn-xs" ng-click="block.log=[]">Clear Log</button>
+        <!-- delete button -->
+        <button
+          class="btn delete-thing"
+          ng-click="bC.deleteBlock(block);"
+          ng-disabled="!nC.user.can('block.delete.'+block.id)"
+          >
+          <span class="icon icon-close"></span>
+        </button>
 
       </div>
 
+      <!-- <div class="log-space inline"> -->
+
+        <!-- <span class="log-{{b.type}}" ng-repeat="b in block.log track by $index">
+          {{b.when.toLocaleString && b.when.toLocaleString()}}
+          <span class="text">{{b.msg.trim()}}</span>
+          <br/>
+        </span> -->
+
+        <!-- clear log button -->
+        <!-- <button type="button" class="btn btn-default btn-xs" ng-click="block.log=[]">Clear Log</button> -->
+
+      <!-- </div> -->
+
       <!-- Modal to update code for block -->
-      <div class="modal fade" id="{{block.id}}-code-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+      <div class="modal fade" id="block-{{block.id}}-code-modal">
 
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">
-                <span class="block-name">Block Name: {{block.name}}</span>
-                <!-- <input type="text" class="block-name" ng-model="block.name"/> -->
-              </h4>
-            </div>
+        <header class="bar bar-nav">
+          <a class="icon icon-close pull-right" data-modal="#block-{{block.id}}-code-modal"></a>
+          <h4 class="title">
+            <span class="block-name">{{block.name}}</span>
+          </h4>
+        </header>
 
-            <div class="modal-body">
+        <div class="content">
 
-              <!-- api help -->
-              <a href="http://queapp.co/docs/block-api" class="help-link">API Reference</a>
-              <a href="http://queapp.co/docs/code-examples" class="help-link">Code Examples</a>
+          <!-- code slider -->
+          <div class="slider">
+            <div class="slide-group">
 
               <!-- code editor -->
-              <label for="textarea">Block Code:</label>
-              <textarea
-                ng-model="block.devCode"
-                placeholder="Blocks are written in javascript."
-                ng-disabled="nC.user.can('block.code.view.'+block.id) && !nC.user.can('block.code.edit.'+block.id)"
-                >
-              </textarea>
+              <div class="slide">
+                <textarea
+                  ng-model="block.devCode"
+                  placeholder="Blocks are written in javascript."
+                  ng-disabled="nC.user.can('block.code.view.'+block.id) && !nC.user.can('block.code.edit.'+block.id)"
+                  >
+                </textarea>
+              </div>
 
-              <!-- log area -->
-              <div class="log-space">
-
-                <span class="log-{{b.type}}" ng-repeat="b in block.log">
-                  {{b.when.toLocaleString && b.when.toLocaleString()}}
-                  <span class="text">{{b.msg.trim()}}</span>
-                  <br/>
-                </span>
-
+              <!-- code logger -->
+              <div class="slide">
+                <img src="http://placehold.it/100x100">
               </div>
 
             </div>
+          </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" ng-click="block.log=[]">Clear Log</button>
+          <!-- api help -->
+          <!-- <a href="http://queapp.co/docs/block-api" class="help-link">API Reference</a>
+          <a href="http://queapp.co/docs/code-examples" class="help-link">Code Examples</a> -->
 
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                ng-click="bC.updateBlock(block);"
-                ng-disabled="!nC.user.can('block.code.edit.'+block.id)"
-                >
-                Save
-              </button>
-            </div>
+          <!-- code editor -->
+          <label for="textarea">Block Code:</label>
+          <textarea
+            ng-model="block.devCode"
+            placeholder="Blocks are written in javascript."
+            ng-disabled="nC.user.can('block.code.view.'+block.id) && !nC.user.can('block.code.edit.'+block.id)"
+            >
+          </textarea>
+
+          <!-- log area -->
+          <div class="log-space">
+
+            <span class="log-{{b.type}}" ng-repeat="b in block.log">
+              {{b.when.toLocaleString && b.when.toLocaleString()}}
+              <span class="text">{{b.msg.trim()}}</span>
+              <br/>
+            </span>
 
           </div>
+
         </div>
+
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" ng-click="block.log=[]">Clear Log</button>
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            ng-click="bC.updateBlock(block);"
+            ng-disabled="!nC.user.can('block.code.edit.'+block.id)"
+            >
+            Save
+          </button>
+        </div> -->
+
       </div>
     </li>
 

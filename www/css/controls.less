@@ -21,8 +21,30 @@
 }
 
 // delete buttons
-.delete-thing {
+.delete-thing, .delete-action {
   color: @brand-danger;
+
+  &.active, &:active, &:focus {
+    color: @brand-danger;
+  }
+}
+
+// delete buttons
+.success-action {
+  color: @brand-success;
+
+  &.active, &:active, &:focus {
+    color: @brand-success;
+  }
+}
+
+// primary buttons
+.primary-action {
+  color: @brand-primary;
+
+  &.active, &:active, &:focus {
+    color: @brand-primary;
+  }
 }
 
 // flat styled well

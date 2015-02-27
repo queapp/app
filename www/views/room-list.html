@@ -148,25 +148,25 @@
 
             <!-- enter and leave buttons -->
             <div class="btn-group pull-right" style="margin-right: 6px;">
-              <a
+              <button
                 class="btn on-leave"
                 ng-disabled="!nC.user.can('room.thing.leave.'+thing.id)"
-                href="#LeaveRoomModal-{{rooms.id}}-{{th.id}}"
+                data-modal="#LeaveRoomModal-{{rooms.id}}-{{th.id}}"
                 >
                 <span class="icon icon-down-nav"></span>
-              </a>
-              <a
+              </button>
+              <button
                 class="btn on-enter"
                 ng-disabled="!nC.user.can('room.thing.enter.'+thing.id)"
-                href="#EnterRoomModal-{{rooms.id}}-{{th.id}}"
+                data-modal="#EnterRoomModal-{{rooms.id}}-{{th.id}}"
                 >
                 <span class="icon icon-up-nav"></span>
-              </a>
+              </button>
 
               <!-- enter configuration modal -->
               <div class="modal roomModal fade" class="roomModal" id="EnterRoomModal-{{rooms.id}}-{{th.id}}">
                 <header class="bar bar-nav">
-                  <a class="icon icon-close pull-right" href="#EnterRoomModal-{{rooms.id}}-{{th.id}}"></a>
+                  <a class="icon icon-close pull-right" data-modal="#EnterRoomModal-{{rooms.id}}-{{th.id}}"></a>
                   <h4 class="modal-title">When a user enters the room...</h4>
                 </header>
                 <div class="content">
@@ -220,7 +220,7 @@
               <!-- leave configuration modal -->
               <div class="modal roomModal fade" class="roomModal" id="LeaveRoomModal-{{rooms.id}}-{{th.id}}">
                 <header class="bar bar-nav">
-                  <a class="icon icon-close pull-right" href="#LeaveRoomModal-{{rooms.id}}-{{th.id}}"></a>
+                  <a class="icon icon-close pull-right" data-modal="#LeaveRoomModal-{{rooms.id}}-{{th.id}}"></a>
                   <h4 class="modal-title">When a user leaves the room...</h4>
                 </header>
                 <div class="content">

@@ -80,13 +80,13 @@ app.controller("navController", function($scope, $rootScope, $http, loginService
     };
 
     // if the user isn't logged in, redirect them to the login page
-    if (root.user && root.user.auth.username === null && next.$$route.originalPath !== "/login") $location.url("/login");
+    if (root.user && root.user.auth.username === null && next.$$route && next.$$route.originalPath !== "/login") $location.url("/login");
 
     // but, if the user is on the login page, redirect them to the dash as long as their logged in
     if (root.user.auth.username !== null && $location.url() === "/login") $location.url("/dash");
 
     // which page?
-    switch(next.$$route.originalPath) {
+    switch(next.$$route && next.$$route.originalPath) {
       case "/dash":
         root.toPage(0);
         break;
