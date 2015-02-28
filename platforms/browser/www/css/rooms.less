@@ -1,0 +1,58 @@
+// main: index.less
+
+.room-list {
+  .thing-list;
+}
+
+.roomModal {
+  .modal-body .form-control {
+    margin: 10px 0px;
+  }
+
+  code {
+    font-size: @font-size-base * 0.6;
+  }
+}
+
+.modal label {
+  font-weight: normal;
+}
+
+.btn.enter-btn {
+  color: @brand-success;
+}
+
+.btn.leave-btn {
+  color: @brand-danger;
+}
+
+// list of users
+.users-list {
+  max-height: @font-size-base * 1.42;
+  span {
+    font-size: @font-size-base * 0.8;
+  }
+}
+
+// thing list
+.thing-list {
+
+  overflow-y: auto;
+
+  padding: 0px;
+  margin-top: 12px;
+
+  li {
+    .body-text;
+    list-style-type: none;
+
+    // style the action buttons to fit
+    &>.btn, div>.btn {
+      .btn-xs;
+      .pull-right;
+
+      &.on-enter { color: @brand-success; }
+      &.on-leave { color: @brand-warning; }
+    }
+  }
+}
