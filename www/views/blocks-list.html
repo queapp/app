@@ -132,7 +132,17 @@
       <div class="modal fade" id="block-{{block.id}}-code-modal">
 
         <header class="bar bar-nav">
-          <a class="icon icon-close pull-right" data-modal="#block-{{block.id}}-code-modal"></a>
+          <a
+            class="icon icon-download pull-left"
+            ng-click="bC.updateBlock(block);"
+            >
+          </a>
+          <a
+            class="icon icon-close pull-right"
+            data-modal="#block-{{block.id}}-code-modal"
+            ng-click="bC.updateBlock(block);"
+            >
+          </a>
           <h4 class="title">
             <span class="block-name">{{block.name}}</span>
           </h4>
@@ -156,7 +166,18 @@
 
               <!-- code logger -->
               <div class="slide">
-                <img src="http://placehold.it/100x100">
+                <div class="log-space">
+
+                  <span class="log-{{b.type}}" ng-repeat="b in block.log track by $index">
+                    {{b.when.toLocaleString && b.when.toLocaleString()}}
+                    <span class="text">{{b.msg.trim()}}</span>
+                    <br/>
+                  </span>
+
+                  <!-- clear log button -->
+                  <button type="button" class="btn btn-default btn-xs" ng-click="block.log=[]">Clear Log</button>
+
+                </div>
               </div>
 
             </div>
@@ -165,26 +186,6 @@
           <!-- api help -->
           <!-- <a href="http://queapp.co/docs/block-api" class="help-link">API Reference</a>
           <a href="http://queapp.co/docs/code-examples" class="help-link">Code Examples</a> -->
-
-          <!-- code editor -->
-          <label for="textarea">Block Code:</label>
-          <textarea
-            ng-model="block.devCode"
-            placeholder="Blocks are written in javascript."
-            ng-disabled="nC.user.can('block.code.view.'+block.id) && !nC.user.can('block.code.edit.'+block.id)"
-            >
-          </textarea>
-
-          <!-- log area -->
-          <div class="log-space">
-
-            <span class="log-{{b.type}}" ng-repeat="b in block.log">
-              {{b.when.toLocaleString && b.when.toLocaleString()}}
-              <span class="text">{{b.msg.trim()}}</span>
-              <br/>
-            </span>
-
-          </div>
 
         </div>
 

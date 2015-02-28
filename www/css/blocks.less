@@ -19,9 +19,8 @@
   .log-space {
     .well;
     .well-sm;
-    margin-top: 14px;
-    max-height: 200px;
-    height: 200px;
+
+    height: 100%;
     overflow-y: auto;
     position: relative;
 
@@ -96,15 +95,17 @@
         padding: 0px 4px;
       }
 
-      .slider {
+      .slider, .slide-group {
         height: 100%;
+        background: #FFF;
       }
+
       textarea {
         .form-control;
         width: 100%;
-        min-height: 500px;
+        height: 100%;
         font-family: monospace;
-        resize: vertical;
+        resize: none;
       }
 
       .block-name {
