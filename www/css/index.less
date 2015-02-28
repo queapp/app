@@ -44,6 +44,11 @@ div.view-container {
 
 div[ng-view] {
   height: 100%;
+
+  // spacing for bottom bar
+  &>div>:last-child {
+    margin-bottom: 64px;
+  }
 }
 
 div[ng-view].ng-enter, div[ng-view].ng-leave {
