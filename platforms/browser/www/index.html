@@ -50,10 +50,13 @@
       </div>
     </div>
 
+    <!-- cordova -->
+    <script type="text/javascript" src="cordova.js"></script>
+
     <!-- all javascript -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/jqueryui/jquery-ui.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="js/app/wildcard.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
@@ -68,7 +71,7 @@
 
     <!-- websockets -->
     <script src="bower_components/socketio-client/socket.io.js"></script>
-    <script> var socket = io(); </script>
+    <script> var socket = io.connect(host); </script>
 
     <!-- angular stuff -->
     <script src="js/app/app.js"></script>
@@ -85,6 +88,9 @@
 
     <!-- update textbox-groups -->
     <script src="js/libs/textbox-group.js"></script>
+
+    <!-- start cordova app -->
+    <script type="text/javascript">app.initialize();</script>
 
   </body>
 </html>
