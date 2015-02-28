@@ -31,6 +31,11 @@ header.bar.bar-nav.navbar-que {
 .modal {
   top: 0px;
   left: 0px;
+  pointer-events: none;
+
+  &.active {
+    pointer-events: auto;
+  }
 
   .content {
     margin-left: 8px;
