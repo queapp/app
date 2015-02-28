@@ -10,6 +10,9 @@
     <!-- All styles -->
     <link href="css/index.css" rel="stylesheet">
 
+    <!-- font awesome -->
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -24,21 +27,32 @@
     </header>
 
     <nav class="bar bar-tab">
-      <a class="tab-item active" ng-class="{active: nC.pageId == 0}" href="#/dash">
-        Dash
-      </a>
+
+      <!-- Things -->
       <a class="tab-item" ng-class="{active: nC.pageId == 1}" href="#/things">
-        Things
+        <span class="fa fa-2x fa-fw fa-sitemap"></span>
       </a>
+
+      <!-- Rooms -->
       <a class="tab-item" ng-class="{active: nC.pageId == 2}" href="#/rooms">
-        Rooms
+        <span class="fa fa-2x fa-fw fa-inbox"></span>
       </a>
+
+      <!-- Dash -->
+      <a class="tab-item active" ng-class="{active: nC.pageId == 0}" href="#/dash">
+        <span class="fa fa-2x fa-fw fa-tachometer"></span>
+      </a>
+
+      <!-- Blocks -->
       <a class="tab-item" ng-class="{active: nC.pageId == 3}" href="#/blocks">
-        Blocks
+        <span class="fa fa-2x fa-fw fa-th-large"></span>
       </a>
+
+      <!-- Settings -->
       <a class="tab-item" ng-class="{active: nC.pageId == 4}" href="#/settings">
-        Settings
+        <span class="fa fa-2x fa-fw fa-cog"></span>
       </a>
+
       <!-- <a class="tab-item" ng-click="nC.user.logout()">
         <span class="icon icon-right"></span>
       </a> -->
