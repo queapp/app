@@ -2,16 +2,31 @@ app.controller("LoginController", function($scope, $http, loginService) {
 
   var root = this;
 
+  // que hostname
+  this.quehostname = sessionStorage.host || "";
+
+  // username and password
   this.username = "";
   this.password = "";
 
   this.badlogin = false;
 
   this.login = function() {
+
+    // a protocol must be used
+    if (this.quehostname.indexOf("http") === -1) {
+      this.quehostname = "http://" + this.quehostname;
+    };
+
+    // set host
+    sessionStorage.host = host = this.quehostname;
+
+    // try to login
     loginService.login(root.username, root.password, function(status) {
       if (!status) root.badlogin = true;
     });
-  }
+  };
+
 });
 
 app.factory("loginService", function($http, $location) {

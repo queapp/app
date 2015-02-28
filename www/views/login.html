@@ -7,8 +7,17 @@
       type="text"
       class="username"
       ng-class="{bad: lC.badlogin}"
+      ng-model="lC.quehostname"
+      placeholder="Que Hostname"
+    />
+
+    <input
+      type="text"
+      class="username"
+      ng-class="{bad: lC.badlogin}"
       ng-model="lC.username"
       placeholder="Username"
+      ng-disabled="!lC.quehostname.length"
     />
     <input
       type="password"
@@ -16,9 +25,15 @@
       ng-class="{bad: lC.badlogin}"
       ng-model="lC.password"
       placeholder="Password"
+      ng-disabled="!lC.quehostname.length"
     />
 
-    <button class="btn btn-primary btn-lg" ng-click="lC.login()">Login</button>
+    <button
+      class="btn btn-primary btn-lg"
+      ng-click="lC.login()"
+      ng-disabled="!lC.quehostname.length"
+      >Login
+    </button>
   </div>
 </div>
 
