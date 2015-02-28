@@ -23,6 +23,12 @@
         },
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "co.queiot.app"
+        },
+        "org.apache.cordova.dialogs": {
+            "PACKAGE_NAME": "co.queiot.app"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "co.queiot.app"
         }
     },
     "dependent_plugins": {}

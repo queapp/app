@@ -55,6 +55,24 @@ app.controller("navController", function($scope, $rootScope, $http, loginService
     // console.log(newInstance)
   });
 
+  // notifications init
+  this.canNotify = false;
+  document.addEventListener('deviceready', function () {
+
+    // alerts
+    if (navigator.notification) { // Override default HTML alert with native dialog
+        window.alert = function (message, title) {
+            navigator.notification.alert(
+                message,    // message
+                null,       // callback
+                title || "Que Mobile", // title
+                'OK'        // buttonName
+            );
+        };
+    };
+
+  }, false);
+
   // get version from backend
   $http({
     method: "get",
