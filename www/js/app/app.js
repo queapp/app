@@ -104,7 +104,7 @@ app.controller("navController", function($scope, $rootScope, $http, loginService
 
     // or, if there isn't a valid host set, also redirect to login page
     // (the user must define the host)
-    host = host || sessionStorage.host;
+    host = host || localStorage.host;
     if ( !host ) $location.url("/login");
 
 

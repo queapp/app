@@ -3,11 +3,11 @@ app.controller("LoginController", function($scope, $http, loginService) {
   var root = this;
 
   // que hostname
-  this.quehostname = sessionStorage.host || "";
+  this.quehostname = localStorage.host || "";
 
   // username and password
-  this.username = "";
-  this.password = "";
+  this.username = sessionStorage.user || "";
+  this.password = sessionStorage.pass || "";
 
   this.badlogin = false;
 
@@ -18,8 +18,10 @@ app.controller("LoginController", function($scope, $http, loginService) {
       this.quehostname = "http://" + this.quehostname;
     };
 
-    // set host
-    sessionStorage.host = host = this.quehostname;
+    // set host, username, and pass
+    localStorage.host = host = this.quehostname;
+    sessionStorage.user = this.username;
+    sessionStorage.pass = this.password;
 
     // try to login
     loginService.login(root.username, root.password, function(status) {
