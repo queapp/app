@@ -632,13 +632,14 @@ Object.deepExtend = function(destination, source) {
 // - collection is the collection
 // - items is an array of items: each must contain the key 'id'
 //   to determine where they fit.
-var mergeDataStrucures = function(collection, items) {
+var mergeDataStructures = function(collection, items) {
 
   items.forEach(function(item) {
     // find where the new data item should be inserted
     a = _.filter(collection, function(i) {
       return i.id == item.id;
     });
+    console.log(a);
     if (a.length) {
       // get index of the item
       index = collection.indexOf(a[0]);
