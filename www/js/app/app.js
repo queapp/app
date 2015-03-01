@@ -481,7 +481,7 @@ app.factory("roomsService", function($http) {
     // update room chache
     socket.on('backend-data-change', function(payload) {
       if (payload && payload.type === "room") {
-        roomservice.cache = payload.data;
+        roomservice.cache = {};
       }
     });
 
@@ -609,3 +609,46 @@ app.service("notificationService", function($http) {
  };
  return notificationservice;
 });
+
+/**
+ * Deeply extend an object from another object
+ * @param {object} destination The destination object to extend to
+ * @param {object} source      The object to extend from into destination
+ */
+Object.deepExtend = function(destination, source) {
+  for (var property in source) {
+    if (source[property] && source[property].constructor &&
+     source[property].constructor === Object) {
+      destination[property] = destination[property] || {};
+      arguments.callee(destination[property], source[property]);
+    } else {
+      destination[property] = source[property];
+    }
+  }
+  return destination;
+};
+
+// merges an item into a collection cleanly:
+// - collection is the collection
+// - items is an array of items: each must contain the key 'id'
+//   to determine where they fit.
+var mergeDataStrucures = function(collection, items) {
+
+  items.forEach(function(item) {
+    // find where the new data item should be inserted
+    a = _.filter(collection, function(i) {
+      return i.id == item.id;
+    });
+    if (a.length) {
+      // get index of the item
+      index = collection.indexOf(a[0]);
+
+      // insert 'item' at 'index' in 'collection'
+      // console.log(collection, index, item)
+      itemValue = Object.deepExtend(collection[index], item);
+      collection[index] = itemValue;
+    };
+  });
+
+  return collection;
+};
