@@ -324,7 +324,7 @@
 
 
         <!-- add to room -->
-        <div class="roomSelect" ng-controller="RoomsController as rC" ng-show="rC.onlyNotIn(rC.rooms, thing.id).length  && tC.editMode !== thing.id">
+        <div class="roomSelect" ng-controller="RoomsController as rC" ng-show="(!rC.thingInRoom(rC.rooms, thing.id)) && tC.editMode !== thing.id">
           <button
             class="btn btn-success pull-right"
             style="margin-right: 16px;"
