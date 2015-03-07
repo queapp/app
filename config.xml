@@ -10,5 +10,4 @@
   <content src="index.html" />
   <access origin="*" />
 
-  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.0" />
 </widget>
